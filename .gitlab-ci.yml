@@ -42,7 +42,7 @@ deploy_job:
     - project: https://mygta.com:4443/alinuxien/php-mysql-from-dockerfile-to-k8s
     - branch: master
     - job: deploy_job
- allow_failure: true
+  allow_failure: true
   artifacts:
     paths: 
       - ./php.yaml

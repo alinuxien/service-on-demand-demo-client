@@ -4,17 +4,14 @@ stages:
   - deploy
   - destroy
 
-variables:
-  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
- 
 prepare_job:
   stage: prepare
   tags:
     - shell
-  script:
-    - 'sed -i "s~mysql-username:~mysql-username: $(echo -n ${MYSQL_USER} | base64) ~g" secret-mysql.yaml'
-    - 'sed -i "s~mysql-password:~mysql-password: $(echo -n ${MYSQL_PASSWORD} | base64) ~g" secret-mysql.yaml'
-    - 'sed -i "s~mysql-root-password:~mysql-root-password: $(echo -n ${MYSQL_ROOT_PASSWORD} | base64) ~g" secret-mysql.yaml'
+  trigger: 
+    - project: https://mygta.com:4443/alinuxien/php-mysql-from-dockerfile-to-k8s
+    - branch: master
+    - job: prepare_job
   artifacts:
     paths: 
       - ./secret-mysql.yaml
@@ -23,35 +20,29 @@ build_php_job:
   stage: build
   tags:
     - shell
-  before_script:
-  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-  script:
-    - docker build -t $(echo ${IMAGE_TAG})-php -f Dockerfile-php .
-    - docker push $(echo ${IMAGE_TAG})-php
-
+  trigger: 
+    - project: https://mygta.com:4443/alinuxien/php-mysql-from-dockerfile-to-k8s
+    - branch: master
+    - job: build_php_job
+ 
 build_mysql_job:
   stage: build
   tags:
     - shell
-  before_script:
-  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-  script:
-    - docker build -t $(echo ${IMAGE_TAG})-mysql -f Dockerfile-mysql .
-    - docker push $(echo ${IMAGE_TAG})-mysql
+  trigger: 
+    - project: https://mygta.com:4443/alinuxien/php-mysql-from-dockerfile-to-k8s
+    - branch: master
+    - job: build_mysql_job
 
 deploy_job:
   stage: deploy 
   tags:
     - shell
-  script:
-    - sudo cp /home/vagrant/.kube/config /home/gitlab-runner/.kube
-    - 'sed -i "s~image: PHP_IMAGE~image: $(echo ${IMAGE_TAG})-php ~g" php.yaml'
-    - 'sed -i "s~image: MYSQL_IMAGE~image: $(echo ${IMAGE_TAG})-mysql ~g" mysql.yaml'
-    - kubectl apply -f secret-mysql.yaml
-    - kubectl apply -f mysql.yaml
-    - kubectl apply -f configmap.yaml
-    - kubectl apply -f php.yaml
-  allow_failure: true
+  trigger: 
+    - project: https://mygta.com:4443/alinuxien/php-mysql-from-dockerfile-to-k8s
+    - branch: master
+    - job: deploy_job
+ allow_failure: true
   artifacts:
     paths: 
       - ./php.yaml
@@ -66,9 +57,8 @@ destroy_job:
   stage: destroy 
   tags:
     - shell
-  script:
-    - kubectl delete -f php.yaml
-    - kubectl delete -f configmap.yaml
-    - kubectl delete -f mysql.yaml
-    - kubectl delete -f secret-mysql.yaml
+  trigger: 
+    - project: https://mygta.com:4443/alinuxien/php-mysql-from-dockerfile-to-k8s
+    - branch: master
+    - job: deploy_job
   when: manual

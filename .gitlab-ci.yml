@@ -9,3 +9,5 @@ prepare_job:
     - project: https://mygta.com:4443/alinuxien/php-mysql-from-dockerfile-to-k8s
     - branch: master
     - job: prepare_job
+  script:
+    - echo "Preparing manifests for Kube"

@@ -1,13 +1,28 @@
 stages:
-  - prepare
+  - build
+  - deploy
 
-prepare_job:
-  stage: prepare
+variables:
+  DEV_IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+  DEV_REGISTRY: $CI_REGISTRY 
+
+build_php_job:
+  stage: build
   tags:
     - shell
-  trigger: 
-    - project: https://mygta.com:4443/alinuxien/php-mysql-from-dockerfile-to-k8s
-    - branch: master
-    - job: prepare_job
+  before_script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $DEV_REGISTRY
   script:
-    - echo "Preparing manifests for Kube"
+    - echo "$DEV_IMAGE_TAG"
+    - echo "$DEV_REGISTRY"
+    - echo "$CI_DEPLOY_USER"
+    - echo "$CI_DEPLOY_PASSWORD"
+    - docker build -t $(echo ${DEV_IMAGE_TAG}) -f Dockerfile .
+    - docker push $(echo ${DEV_IMAGE_TAG})
+
+deploy_job:
+  stage: deploy
+  trigger:
+    project: service-on-demand/service-on-demand
+    branch: master
+    strategy: depend

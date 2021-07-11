@@ -18,6 +18,6 @@ if ($conn->connect_error) {
 // Affichage du résultat de la connexion et des infos sur le serveur de BDD
 echo "Connexion reussie a la BDD\n<br />";
 echo "Version du serveur de BDD : ".mysqli_get_server_info($conn)."\n<br />";
-echo "Ce test fonctionne bien\n<br />";
+echo "Et celui ci\n<br />";
 ?>
 

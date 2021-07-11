@@ -1,6 +1,6 @@
 <?php
 // Affiche le nom de la machine qui execute le script
-echo gethostname()."\n";
+echo gethostname()."\n<br />";
 
 // Récupération des informations de connexion depuis les variables d'environnement
 $mysql_server = getenv("MYSQL_SERVER");
@@ -18,6 +18,6 @@ if ($conn->connect_error) {
 // Affichage du résultat de la connexion et des infos sur le serveur de BDD
 echo "Connexion reussie a la BDD\n<br />";
 echo "Version du serveur de BDD : ".mysqli_get_server_info($conn)."\n<br />";
-echo "and still testing\n<br />";
+echo "Are you sure about your test\n<br />";
 ?>
 

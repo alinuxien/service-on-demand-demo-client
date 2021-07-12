@@ -11,12 +11,8 @@ build_php_job:
   tags:
     - shell
   before_script:
-  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $DEV_REGISTRY
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $DEV_REGISTRY
   script:
-    - echo "$DEV_IMAGE_TAG"
-    - echo "$DEV_REGISTRY"
-    - echo "$CI_DEPLOY_USER"
-    - echo "$CI_DEPLOY_PASSWORD"
     - docker build -t $(echo ${DEV_IMAGE_TAG}) -f Dockerfile .
     - docker push $(echo ${DEV_IMAGE_TAG})
 

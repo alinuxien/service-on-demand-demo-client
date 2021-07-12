@@ -2,10 +2,15 @@ stages:
   - build
   - deploy
 
+# Préparation du tag pour l'image du container PHP
+# et la Container Registry de ce projet 
+# pour passation au Pipeline du Projet Service On Demand
 variables:
   DEV_IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
   DEV_REGISTRY: $CI_REGISTRY 
 
+# Préparation de l'image du container Apache PHP contenant le code de l'application
+# et dépot sur la Container Registry de GitLab
 build_php_job:
   stage: build
   tags:
@@ -16,6 +21,9 @@ build_php_job:
     - docker build -t $(echo ${DEV_IMAGE_TAG}) -f Dockerfile .
     - docker push $(echo ${DEV_IMAGE_TAG})
 
+# Déclenchement du pipeline du Projet Service On Demand
+# qui va déployer le container PHP, le container MySQL
+# et les services associés sur le Cluster Kubernetes
 deploy_job:
   stage: deploy
   trigger:

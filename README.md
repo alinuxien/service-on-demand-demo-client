@@ -27,6 +27,8 @@ Le Pipeline de ce Projet :
 Dans GitLab :
 - vous devez créer un nouveau projet pour votre application et y déposer le contenu de ce dépot ( `https://github.com/alinuxien/service-on-demand-demo-client` )
 - vous allez maintenant ajouter ce projet au groupe `Service On Demand`, ou demander au mainteneur du groupe Service On Demand de le faire
+- le code de l'application sera déposé dans le dossier `app`
+- les credentials MySQL sont disponibles à travers les variables d'environnement MYSQL_ROOT_PASSWORD, MYSQL_USER et MYSQL_PASSWORD
 
 Et voilà! Vous pouvez déjà utiliser le Service On Demand et faire de la CI/CD pour développer votre application et la déployer automatiquement sur le Cluster Kubernetes.
 

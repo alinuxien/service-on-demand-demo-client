@@ -5,7 +5,7 @@ Il s'agit d'un projet réalisé en Juillet 2021 dans le cadre de ma formation "E
 Il s'agit seulement d'un projet d'étude, à NE PAS UTILISER EN PROD  !!!
 
 ## Ca fait quoi ?
-Dans le détails, il s'agit d'utiliser le Service On Demand disponible dans mon projet [service-on-demand](https://github.com/alinuxien/service-on-demand), pour développer une application PHP-MySQL avec GitLab CI/CD, et la voir déployée automatiquement sur un cluster Kubernetes.
+Il s'agit d'utiliser le Service On Demand disponible dans mon projet [service-on-demand](https://github.com/alinuxien/service-on-demand), pour développer une application PHP-MySQL avec GitLab CI/CD, et la voir déployée automatiquement sur un cluster Kubernetes.
 
 Le Pipeline de ce Projet : 
 - prépare un container Docker contenant le code de l'application PHP, 

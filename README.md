@@ -21,12 +21,7 @@ Le Pipeline de ce Projet :
 - le dossier `app` contenant le code de votre application PHP
  
 ## J'ai besoin de quoi ?
-- Une VM GitLab locale, avec certains utilitaires, et un Runner de type Shell. 
-- Un Cluster Kubernetes, avec un accès configuré depuis la ligne de commande **de l'utilisateur `vagrant` de la vm** ( kubectl )
-- Un repository Docker Hub pour stocker les images PHP et MySQL
-- Le projet `Service On Demand` créé dans GitLab et correctement configuré
- 
-Vous pouvez trouver de quoi créer tout cela sur mon projet [service-on-demand](https://github.com/alinuxien/service-on-demand)
+- Le projet `Service On Demand` créé dans GitLab et correctement configuré, disponible sur mon projet [service-on-demand](https://github.com/alinuxien/service-on-demand)
 
 ## Comment ça s'utilise ?
 Dans GitLab :

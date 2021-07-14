@@ -30,5 +30,7 @@ Dans GitLab :
 
 Et voilà! Vous pouvez déjà utiliser le Service On Demand et faire de la CI/CD pour développer votre application et la déployer automatiquement sur le Cluster Kubernetes.
 
+C'est à dire que chaque fois que vous allez pousser des modifications sur le repository Git du Projet, ou lancer manuellement le pipeline, la nouvelle version de l'application sera déployée sur le Cluster Kubernetes.
+
 # Et après ?
 Ben, c'est déjà pas mal, non ?
